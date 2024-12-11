@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:training_diary/features/statistics/statistics_page.dart';
 import 'package:training_diary/features/train/presentation/pages/create_train_page.dart';
 import 'package:training_diary/features/train/presentation/pages/details_page.dart';
-import 'package:training_diary/utils/themes/theme.dart';
+import 'package:training_diary/utils/themes/theme_config.dart';
 
 void main() {
   runApp(MyApp());
