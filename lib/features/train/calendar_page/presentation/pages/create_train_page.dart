@@ -1,6 +1,3 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -48,16 +45,14 @@ class CreateTrainPage extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Expanded(
-              child: Container(
-                child: const Center(
-                  child: Text(
-                    'Упражнения',
-                    style: TextStyle(
-                      color: Color(0xff787878),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                    ),
+            const Expanded(
+              child: Center(
+                child: Text(
+                  'Упражнения',
+                  style: TextStyle(
+                    color: Color(0xff787878),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
                   ),
                 ),
               ),

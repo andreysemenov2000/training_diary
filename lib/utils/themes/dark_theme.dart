@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:training_diary/utils/themes/text_theme.dart';
 
 ThemeData createDarkTheme() => ThemeData(
       brightness: Brightness.dark,
@@ -11,4 +12,7 @@ ThemeData createDarkTheme() => ThemeData(
         buttonColor: Colors.white,
         textTheme: ButtonTextTheme.normal,
       ),
+      extensions: [
+        CalendarTextThemeExtension.dark(),
+      ],
     );

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:training_diary/features/statistics/statistics_page.dart';
-import 'package:training_diary/features/train/presentation/pages/create_train_page.dart';
-import 'package:training_diary/features/train/presentation/pages/details_page.dart';
+import 'package:training_diary/features/train/calendar_page/presentation/pages/calendar_page.dart';
+import 'package:training_diary/features/train/calendar_page/presentation/pages/details_page.dart';
 import 'package:training_diary/utils/themes/theme_config.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
+
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -17,14 +18,21 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late final GoRouter _router;
   late final ThemeConfig _themeConfig;
+  late final GoRouter _router;
 
   @override
   void initState() {
     super.initState();
+    _themeConfig = ThemeConfig();
+    _themeConfig.addListener(
+      () {
+        setState(() {});
+      },
+    );
+
     _router = GoRouter(
-      initialLocation: '/train',
+      initialLocation: '/calendar',
       routes: [
         StatefulShellRoute.indexedStack(
           builder: (context, routerState, navigationShell) => BaseScreen(
@@ -35,8 +43,8 @@ class _MyAppState extends State<MyApp> {
             StatefulShellBranch(
               routes: [
                 GoRoute(
-                  path: '/train',
-                  builder: (context, routerState) => const CreateTrainPage(),
+                  path: '/calendar',
+                  builder: (context, routerState) => const CalendarPage(),
                   routes: [
                     GoRoute(
                       path: '/details',
@@ -58,22 +66,16 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
     );
-    _themeConfig = ThemeConfig();
-    _themeConfig.addListener(
-      () {
-        setState(() {});
-      },
-    );
   }
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp.router(
       title: 'Flutter Demo',
       theme: createLightTheme(),
       darkTheme: createDarkTheme(),
-      themeMode: ThemeConfig().getThemeMode(),
+      themeMode: _themeConfig.getThemeMode(),
       routerConfig: _router,
     );
   }
