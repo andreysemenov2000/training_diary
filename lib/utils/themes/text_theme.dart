@@ -27,7 +27,6 @@ class CalendarTextThemeExtension extends ThemeExtension<CalendarTextThemeExtensi
       weekDayTextStyle: const TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 20,
-        color: Colors.black,
       ),
       dateTextStyle: const TextStyle(
         fontWeight: FontWeight.w500,
@@ -46,7 +45,6 @@ class CalendarTextThemeExtension extends ThemeExtension<CalendarTextThemeExtensi
       weekDayTextStyle: const TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 20,
-        color: Colors.white,
       ),
       dateTextStyle: const TextStyle(
         fontWeight: FontWeight.w500,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:training_diary/features/train/calendar_page/presentation/widgets/calendar_widget.dart';
+import 'package:training_diary/features/train/calendar_page/presentation/widgets/calendar/calendar_widget.dart';
 
 class CalendarPage extends StatelessWidget {
   const CalendarPage({super.key});
@@ -9,7 +9,7 @@ class CalendarPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          CalendarWidget(),
+          CalendarWidget(onSelectDate: (date) {},),
         ],
       ),
     );
