@@ -13,7 +13,7 @@ class MonthWidget extends StatefulWidget {
   final Animation<double> monthOpacity;
   final double calendarColumnsSpacing;
 
-  MonthWidget({
+  const MonthWidget({
     required this.controller,
     required this.monthOpacity,
     required this.calendarColumnsSpacing,

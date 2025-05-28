@@ -105,12 +105,6 @@ class BaseScreen extends StatelessWidget {
         currentIndex: navigationShell.currentIndex,
         onTap: (i) => navigationShell.goBranch(i),
       ),
-      floatingActionButton: ElevatedButton(
-        onPressed: () {
-          _themeConfig.toggleTheme();
-        },
-        child: const Icon(Icons.brightness_4),
-      ),
     );
   }
 }

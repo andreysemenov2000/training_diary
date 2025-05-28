@@ -5,7 +5,7 @@ import 'package:training_diary/features/train/calendar_page/presentation/bloc/ca
 import 'package:training_diary/features/train/calendar_page/presentation/widgets/calendar/month_widget.dart';
 import 'package:training_diary/features/train/calendar_page/presentation/widgets/calendar/week_widget.dart';
 import 'package:training_diary/features/train/calendar_page/utils/calendar_constants.dart';
-import 'package:training_diary/utils/themes/text_theme.dart';
+import 'package:training_diary/utils/themes/extensions/calendar_theme_extension.dart';
 
 class CalendarWidget extends StatelessWidget {
   final void Function(DateTime) onSelectDate;
@@ -65,7 +65,7 @@ class _CalendarWidgetFlowState extends State<CalendarWidgetFlow>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final calendarTextThemeExtension = theme.extension<CalendarTextThemeExtension>()!;
+    final calendarThemeExtension = theme.extension<CalendarThemeExtension>()!;
 
     return Container(
       padding: const EdgeInsets.only(
@@ -74,24 +74,10 @@ class _CalendarWidgetFlowState extends State<CalendarWidgetFlow>
         left: 20,
         right: 20,
       ),
-      decoration: BoxDecoration(
-        color: theme.scaffoldBackgroundColor,
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(20),
-          bottomRight: Radius.circular(20),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: theme.shadowColor,
-            spreadRadius: 3,
-            blurRadius: 7,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
+      decoration: calendarThemeExtension.getCalendarContainerDecoration(context),
       child: Column(
         children: [
-          _buildMonthName(calendarTextThemeExtension),
+          _buildMonthName(calendarThemeExtension),
           _buildDaysOfWeek(),
           AnimatedContainer(
             onEnd: _onEndAnimation,
@@ -107,7 +93,7 @@ class _CalendarWidgetFlowState extends State<CalendarWidgetFlow>
     );
   }
 
-  Widget _buildMonthName(CalendarTextThemeExtension calendarTextThemeExtension) {
+  Widget _buildMonthName(CalendarThemeExtension calendarThemeExtension) {
     return BlocBuilder<CalendarCubit, CalendarState>(
       buildWhen: (prev, cur) => prev.monthName != cur.monthName,
       builder: (context, state) {
@@ -117,7 +103,7 @@ class _CalendarWidgetFlowState extends State<CalendarWidgetFlow>
             children: [
               Text(
                 state.monthName,
-                style: calendarTextThemeExtension.monthTextStyle,
+                style: calendarThemeExtension.monthTextStyle,
               ),
             ],
           ),
@@ -128,7 +114,7 @@ class _CalendarWidgetFlowState extends State<CalendarWidgetFlow>
 
   Widget _buildDaysOfWeek() {
     final theme = Theme.of(context);
-    final calendarTextThemeExtension = theme.extension<CalendarTextThemeExtension>()!;
+    final calendarThemeExtension = theme.extension<CalendarThemeExtension>()!;
     final spacing = MediaQuery.sizeOf(context).width / 12.2;
     final List<Widget> widgets = [];
     for (int i = 0; i < numberDaysWeek; i++) {
@@ -137,7 +123,7 @@ class _CalendarWidgetFlowState extends State<CalendarWidgetFlow>
           padding: i != numberDaysWeek - 1 ? EdgeInsets.only(right: spacing) : EdgeInsets.zero,
           child: Text(
             daysOfWeek[i],
-            style: calendarTextThemeExtension.weekDayTextStyle,
+            style: calendarThemeExtension.weekDayTextStyle,
           ),
         ),
       );
@@ -175,16 +161,26 @@ class _CalendarWidgetFlowState extends State<CalendarWidgetFlow>
   }
 
   Widget _buildCalendarExpander() {
+    final theme = Theme.of(context);
+    final calendarThemeExtension = theme.extension<CalendarThemeExtension>()!;
+    final screenWidth = MediaQuery.sizeOf(context).width;
+
     return GestureDetector(
       onVerticalDragUpdate: _onDraggingExpander,
       onVerticalDragEnd: _onEndDraggingExpander,
       child: Container(
+        width: screenWidth,
+        height: 10,
         color: Theme.of(context).scaffoldBackgroundColor,
-        padding: const EdgeInsets.only(top: 10),
+        margin: const EdgeInsets.only(top: 10),
+        padding: EdgeInsets.symmetric(horizontal: screenWidth / 2.6, vertical: 3.5),
         child: Container(
-          width: 50,
-          height: 3,
-          color: Colors.green,
+          width: 5,
+          height: 10,
+          decoration: BoxDecoration(
+            color: calendarThemeExtension.calendarExpanderColor,
+            borderRadius: BorderRadius.circular(10),
+          ),
         ),
       ),
     );

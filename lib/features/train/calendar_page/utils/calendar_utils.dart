@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:training_diary/features/train/calendar_page/utils/calendar_constants.dart';
-import 'package:training_diary/utils/themes/text_theme.dart';
+import 'package:training_diary/utils/themes/extensions/calendar_theme_extension.dart';
 
 DateTime getWeekMonday(DateTime startDate) {
   return startDate.subtract(Duration(days: startDate.weekday - 1));
@@ -77,7 +77,7 @@ Widget _buildCalendarDate(
   required bool isMonth,
 }) {
   final theme = Theme.of(context);
-  final calendarTextThemeExtension = theme.extension<CalendarTextThemeExtension>()!;
+  final calendarThemeExtension = theme.extension<CalendarThemeExtension>()!;
   final now = DateTime.now();
   final bool isToday = _checkIsSameDay(date, now);
   final bool isSelected = _checkIsSameDay(date, selectedDate);
@@ -97,20 +97,18 @@ Widget _buildCalendarDate(
       margin: const EdgeInsets.only(top: 5),
       width: 34,
       height: 34,
-      decoration: BoxDecoration(
-        border: isToday ? Border.all(color: theme.primaryColor) : null,
-        borderRadius: BorderRadius.circular(20),
-        color: isSelected ? theme.primaryColor : null,
+      decoration: calendarThemeExtension.getCalendarDateContainerBoxDecoration(
+        context,
+        isToday: isToday,
+        isSelected: isSelected,
       ),
       child: Center(
         child: Text(
           '${date.day}',
-          style: calendarTextThemeExtension.dateTextStyle.copyWith(
-            color: _getDateColor(
-              context,
-              isSelected: isSelected,
-              isActive: isActive,
-            ),
+          style: calendarThemeExtension.getCalendarDateTextStyle(
+            context,
+            isActive: isActive,
+            isSelected: isSelected,
           ),
           textHeightBehavior: const TextHeightBehavior(
             applyHeightToLastDescent: false,
@@ -136,19 +134,4 @@ bool _checkIsActive({
   } else {
     return true;
   }
-}
-
-Color? _getDateColor(
-  BuildContext context, {
-  required bool isSelected,
-  required bool isActive,
-}) {
-  final theme = Theme.of(context);
-  if (isSelected) {
-    return theme.scaffoldBackgroundColor;
-  }
-  if (!isActive) {
-    return Colors.grey;
-  }
-  return null;
 }

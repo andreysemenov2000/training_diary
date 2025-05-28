@@ -13,7 +13,7 @@ class WeekWidget extends StatefulWidget {
   final Animation<double> weekOpacity;
   final double calendarColumnsSpacing;
 
-  WeekWidget({
+  const WeekWidget({
     required this.controller,
     required this.calendarColumnsSpacing,
     required this.weekOpacity,
