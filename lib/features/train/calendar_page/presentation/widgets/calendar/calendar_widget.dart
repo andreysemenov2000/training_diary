@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:training_diary/features/train/calendar_page/presentation/bloc/calendar/calendar_state.dart';
-import 'package:training_diary/features/train/calendar_page/presentation/bloc/calendar_cubit.dart';
+import 'package:training_diary/features/train/calendar_page/presentation/bloc/calendar/calendar_cubit.dart';
 import 'package:training_diary/features/train/calendar_page/presentation/widgets/calendar/month_widget.dart';
 import 'package:training_diary/features/train/calendar_page/presentation/widgets/calendar/week_widget.dart';
 import 'package:training_diary/features/train/calendar_page/utils/calendar_constants.dart';
@@ -150,11 +150,13 @@ class _CalendarWidgetFlowState extends State<CalendarWidgetFlow>
           controller: _controller,
           calendarColumnsSpacing: _calendarColumnsSpacing,
           weekOpacity: _weekOpacity,
+          onSelectDate: widget.onSelectDate,
         ),
         MonthWidget(
           controller: _controller,
           calendarColumnsSpacing: _calendarColumnsSpacing,
           monthOpacity: _monthOpacity,
+          onSelectDate: widget.onSelectDate,
         ),
       ],
     );

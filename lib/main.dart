@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:training_diary/features/statistics/statistics_page.dart';
 import 'package:training_diary/features/train/calendar_page/presentation/pages/calendar_page.dart';
 import 'package:training_diary/features/train/calendar_page/presentation/pages/details_page.dart';
+import 'package:training_diary/utils/dependency_manager.dart';
 import 'package:training_diary/utils/themes/theme_config.dart';
 
 void main() {
@@ -30,7 +31,7 @@ class _MyAppState extends State<MyApp> {
         setState(() {});
       },
     );
-
+    DependencyManager.registerDependencies();
     _router = GoRouter(
       initialLocation: '/calendar',
       routes: [
