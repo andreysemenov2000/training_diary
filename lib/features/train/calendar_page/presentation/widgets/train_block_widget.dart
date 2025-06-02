@@ -3,8 +3,10 @@ import 'package:training_diary/utils/themes/extensions/train_block_theme_extensi
 
 class TrainBlockWidget extends StatelessWidget {
   final String name;
+  final int id;
 
   const TrainBlockWidget({
+    required this.id,
     required this.name,
     super.key,
   });

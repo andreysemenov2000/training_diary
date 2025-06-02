@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:training_diary/features/train/calendar_page/presentation/bloc/calendar/calendar_state.dart';
-import 'package:training_diary/features/train/calendar_page/presentation/bloc/calendar_cubit.dart';
+import 'package:training_diary/features/train/calendar_page/presentation/bloc/calendar/calendar_cubit.dart';
 import 'package:training_diary/features/train/calendar_page/presentation/widgets/calendar/swipe_detector_widget.dart';
 import 'package:training_diary/features/train/calendar_page/utils/calendar_constants.dart';
 import 'package:training_diary/features/train/calendar_page/utils/calendar_utils.dart';
@@ -12,11 +12,13 @@ class WeekWidget extends StatefulWidget {
   final AnimationController controller;
   final Animation<double> weekOpacity;
   final double calendarColumnsSpacing;
+  final void Function(DateTime date) onSelectDate;
 
   const WeekWidget({
     required this.controller,
     required this.calendarColumnsSpacing,
     required this.weekOpacity,
+    required this.onSelectDate,
     super.key,
   });
 
@@ -77,7 +79,10 @@ class _WeekWidgetState extends State<WeekWidget> {
                     children: buildCalendarColumns(
                       context,
                       dates: calendarCubit.state.weekDates,
-                      onDateSelect: (date) => calendarCubit.selectDate(date, isMonthNow: false),
+                      onDateSelect: (date) {
+                        widget.onSelectDate(date);
+                        calendarCubit.selectDate(date, isMonthNow: false);
+                      },
                       selectedDate: calendarCubit.state.selectedDate,
                     ),
                   );

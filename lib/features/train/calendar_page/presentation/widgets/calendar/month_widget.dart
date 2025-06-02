@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:training_diary/features/train/calendar_page/presentation/bloc/calendar/calendar_state.dart';
-import 'package:training_diary/features/train/calendar_page/presentation/bloc/calendar_cubit.dart';
+import 'package:training_diary/features/train/calendar_page/presentation/bloc/calendar/calendar_cubit.dart';
 import 'package:training_diary/features/train/calendar_page/presentation/widgets/calendar/swipe_detector_widget.dart';
 import 'package:training_diary/features/train/calendar_page/utils/calendar_constants.dart';
 import 'package:training_diary/features/train/calendar_page/utils/calendar_utils.dart';
@@ -12,11 +12,13 @@ class MonthWidget extends StatefulWidget {
   final AnimationController controller;
   final Animation<double> monthOpacity;
   final double calendarColumnsSpacing;
+  final void Function(DateTime date) onSelectDate;
 
   const MonthWidget({
     required this.controller,
     required this.monthOpacity,
     required this.calendarColumnsSpacing,
+    required this.onSelectDate,
     super.key,
   });
 
@@ -78,7 +80,10 @@ class _MonthWidgetState extends State<MonthWidget> {
                     children: buildCalendarColumns(
                       context,
                       dates: calendarCubit.state.monthDates,
-                      onDateSelect: (date) => calendarCubit.selectDate(date, isMonthNow: true),
+                      onDateSelect: (date) {
+                        widget.onSelectDate(date);
+                        calendarCubit.selectDate(date, isMonthNow: true);
+                      },
                       selectedDate: calendarCubit.state.selectedDate,
                       currentMonth: calendarCubit.currentMonth,
                       isMonth: true,
